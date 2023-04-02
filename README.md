@@ -3,6 +3,7 @@
 ## FreePI is the Free Package Index, a version of PyPi that includes ONLY 100% Free Software
 https://freepi.org/
 
+Founded April 1st 2023 (no, not an April fools joke)
 **In Development**
 
 Welcome to FreePI
