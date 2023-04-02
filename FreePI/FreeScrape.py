@@ -1,12 +1,37 @@
 '''
 FreeScrape.py
+
 Copyright: Zian Elijah Smith
 2023
+
 Web Scrapper for FreePI
+
 FreeScrape conducts webscraping on PyPi and collects the Free Software packages.
 Searches are conducted by cheacking each license page.
+
 This file is still being developed.
+
+License: GPL-3.0 license
 '''
+
+
+'''''''''''''''''''''''''''''''''''''''''''''''''''
+                To-DO
+
+1. Automate the locating of "pages" button index
+   so we always know how many pages to scrape
+   
+2. begin combining dictionaries
+    A. Dictionaries by License
+    B. A full Dictionary with EVERY free software package
+
+3. Add other free software licenses
+
+4. etc....
+
+'''''''''''''''''''''''''''''''''''''''''''''''''''
+
+
 # Pydantic is MIT license
 # Used for providing documentation and annotations to variables, etc
 try:
@@ -22,13 +47,62 @@ except(ImportError):
    raise ImportError("You need to install the python package requests")
    
 # bs4 is MIT License (MIT)
-# used for scraping the HTTP data we receive from requests
+# used for extracting the data we receive from scrapes via requests
 try:
     from bs4 import BeautifulSoup
 except(ImportError):
    raise ImportError("You need to install the python package bs4 (BeautifulSoup)")
    
 
+# collections is from standard library
+# We need this to combine 2 dictionaries while keeping them in order
+# using chainmap
+
+from collections import ChainMap
+
+'''
+a = {0: {'name': 'pkg0', 'version': '1', 'date': '2020'},
+ 1: {'name': 'pkg1', 'version': '2', 'date': '2023'}}
+
+
+b = {0: {'name': 'pkg3', 'version': '1', 'date': '2020'},
+ 1: {'name': 'pkg4', 'version': '2', 'date': '2023'}}
+
+z = ChainMap(a,b)
+
+# 2 dicts properly combined WHILE IN PROPER ORDER
+print(z)
+ChainMap({0: {'name': 'pkg0', 'version': '1', 'date': '2020'}, 1: {'name': 'pkg1', 'version': '2', 'date': '2023'}}, {0: {'name': 'pkg3', 'version': '1', 'date': '2020'}, 1: {'name': 'pkg4', 'version': '2', 'date': '2023'}})
+
+
+#assume in an automated process, we had the loop start at zero in each page
+also assume we need to convert a chainmap object back into a dict
+
+the following shows us there's various ways to go about this and explains chainmaps
+
+In [347]: z.__dict__['maps']
+Out[347]: 
+[{0: {'name': 'pkg0', 'version': '1', 'date': '2020'},
+  1: {'name': 'pkg1', 'version': '2', 'date': '2023'}},
+ {0: {'name': 'pkg3', 'version': '1', 'date': '2020'},
+  1: {'name': 'pkg4', 'version': '2', 'date': '2023'}}]
+
+In [348]: z.__dict__['maps'][0]
+Out[348]: 
+{0: {'name': 'pkg0', 'version': '1', 'date': '2020'},
+ 1: {'name': 'pkg1', 'version': '2', 'date': '2023'}}
+
+In [349]: z.__dict__['maps'][0][0]
+Out[349]: {'name': 'pkg0', 'version': '1', 'date': '2020'}
+
+In [350]: z.__dict__['maps'][1][0]
+Out[350]: {'name': 'pkg3', 'version': '1', 'date': '2020'}
+
+In [351]: dict(z.__dict__['maps'][1][0])
+Out[351]: {'name': 'pkg3', 'version': '1', 'date': '2020'}
+
+
+'''
 
 # Licenses, in alphabetical order
 
@@ -85,6 +159,7 @@ GNU_Library_or_Lesser_General_Public_License = LGPL = "https://pypi.org/search/?
 #16
 MIT_License = MIT = "https://pypi.org/search/?c=License+%3A%3A+OSI+Approved+%3A%3A+MIT+License&o=&q=&page={}"
 
+#17
 Python_Software_Foundation_License = PSF = "https://pypi.org/search/?c=License+%3A%3A+OSI+Approved+%3A%3A+Python+Software+Foundation+License&o=&q=&page={}"
 
 # obviously all the lists we will use will be Free_liceneses
@@ -92,18 +167,57 @@ Python_Software_Foundation_License = PSF = "https://pypi.org/search/?c=License+%
 # Additionally, it provides the user a complete list to view
 
 # https://www.gnu.org/licenses/license-list.en.html
-Free_Licenses = [ Apache_Software_License_URL, Artistic_License_URL, GNU_Affero_General_Public_License_v3, GNU_Affero_General_Public_License_v3_or_later, GNU_Free_Documentation_License, GNU_General_Public_License, GNU_General_Public_License_v2, GNU_General_Public_License_v2_or_later, GNU_General_Public_License_v3, GNU_General_Public_License_v3_or_later, GNU_Lesser_General_Public_License_v2, GNU_Lesser_General_Public_License_v2_or_later, GNU_Lesser_General_Public_License_v3, GNU_Lesser_General_Public_License_v3_or_later, GNU_Library_or_Lesser_General_Public_License, MIT_License ]
+Free_Licenses = [ Apache_Software_License_URL, Artistic_License_URL, \
+GNU_Affero_General_Public_License_v3, GNU_Affero_General_Public_License_v3_or_later, \
+GNU_Free_Documentation_License, GNU_General_Public_License, GNU_General_Public_License_v2, \
+GNU_General_Public_License_v2_or_later, GNU_General_Public_License_v3, \
+GNU_General_Public_License_v3_or_later, GNU_Lesser_General_Public_License_v2, \
+GNU_Lesser_General_Public_License_v2_or_later, GNU_Lesser_General_Public_License_v3, \
+GNU_Lesser_General_Public_License_v3_or_later, GNU_Library_or_Lesser_General_Public_License, \
+MIT_License, Python_Software_Foundation_License ]
 
 
 # GPL Compatible lists, to help users find these specifically.
 
 # https://www.gnu.org/licenses/license-list.en.html#GPLCompatibleLicenses
-GPL_Compatible = [ Apache_Software_License_URL, Artistic_License_URL, GNU_Affero_General_Public_License_v3, GNU_Affero_General_Public_License_v3_or_later, GNU_Free_Documentation_License, GNU_General_Public_License, GNU_General_Public_License_v2, GNU_General_Public_License_v2_or_later, GNU_General_Public_License_v3, GNU_General_Public_License_v3_or_later, GNU_Lesser_General_Public_License_v2, GNU_Lesser_General_Public_License_v2_or_later, GNU_Lesser_General_Public_License_v3, GNU_Lesser_General_Public_License_v3_or_later, GNU_Library_or_Lesser_General_Public_License, MIT_License ]
+GPL_Compatible = [ Apache_Software_License_URL, Artistic_License_URL, \
+GNU_Affero_General_Public_License_v3, GNU_Affero_General_Public_License_v3_or_later, \
+GNU_Free_Documentation_License, GNU_General_Public_License, GNU_General_Public_License_v2, \
+GNU_General_Public_License_v2_or_later, GNU_General_Public_License_v3, \
+GNU_General_Public_License_v3_or_later, GNU_Lesser_General_Public_License_v2, \
+GNU_Lesser_General_Public_License_v2_or_later, GNU_Lesser_General_Public_License_v3, \
+GNU_Lesser_General_Public_License_v3_or_later, GNU_Library_or_Lesser_General_Public_License, \
+MIT_License ]
 
 
-
-
-def scan_packages(url):
+# type hints cheat sheet
+# https://mypy.readthedocs.io/en/stable/cheat_sheet_py3.html
+def scan_packages(url: str) -> dict:
+    '''
+    scan_packages(url: str) -> dict
+    
+    scans a PyPi URL based on license and then returns a dictionary
+    of packages that fit that license for each page.
+    
+    *temporary note for developers*
+    
+    ----- Initial phase -----
+    1. automate the scanning of every page, discarding non-free packages
+    2. combine the dictionaries to form 1 large dictionary of EVERY free package with their respective license
+    3. write the python dictionary to two separate textfiles: 1 as .json and 1 as .py
+    4. configure settings so pip can set this data as global value
+    5. boom, people should be able to start using pip and only get free software
+    
+    ----- cleanup phase -----
+    6. Unit testing
+    7. user and developer feedback
+    
+    ----- growth phase -----
+    8. Maybe start scraping other language indexes
+    like ruby?
+    
+    9. maybe add other features?
+    '''
     # might use a dictionary from a text file later
     dictionary = {}
     
@@ -313,7 +427,5 @@ Out[220]:
  57: 'house',
  58: '0.1.10',
  59: '\n  Jan 28, 2018\n'}
-
-
 
 '''
