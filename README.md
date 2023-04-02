@@ -18,11 +18,12 @@ Getting started with FreePI is easy. Just add the FreePI index to your pip confi
 <pre>pip config set global.index-url https://freepi.org/simple/</pre>
 
 Once you've added the FreePI index to your pip configuration, you can use the pip install command to install packages from FreePI, just as you would with PyPI:
+<pre>pip install package-name</pre>
 
-pip install package-name
 Contact Us
-If you have any questions or feedback about FreePI, please visit the channel #freepi on irc.libera.chat.
+If you have any questions, feedback about FreePI or if you would like to contribute, please visit the channel #freepi on irc.libera.chat.
 
 Developed by ahoka and jsxself (jsxself is a FSF member)
+(ahoka, aka Zian, gives special thanks to jsxself for helping with this project on day one)
 
 
