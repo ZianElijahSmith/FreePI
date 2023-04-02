@@ -1,17 +1,12 @@
 '''
 FreeScrape.py
-
 Copyright: Zian Elijah Smith
 2023
-
 Web Scrapper for FreePI
-
 FreeScrape conducts webscraping on PyPi and collects the Free Software packages.
 Searches are conducted by cheacking each license page.
-
 This file is still being developed.
 '''
-
 # Pydantic is MIT license
 # Used for providing documentation and annotations to variables, etc
 try:
@@ -90,6 +85,8 @@ GNU_Library_or_Lesser_General_Public_License = LGPL = "https://pypi.org/search/?
 #16
 MIT_License = MIT = "https://pypi.org/search/?c=License+%3A%3A+OSI+Approved+%3A%3A+MIT+License&o=&q=&page={}"
 
+Python_Software_Foundation_License = PSF = "https://pypi.org/search/?c=License+%3A%3A+OSI+Approved+%3A%3A+Python+Software+Foundation+License&o=&q=&page={}"
+
 # obviously all the lists we will use will be Free_liceneses
 # However, we want to have a complete list so we know what to look for
 # Additionally, it provides the user a complete list to view
@@ -107,6 +104,7 @@ GPL_Compatible = [ Apache_Software_License_URL, Artistic_License_URL, GNU_Affero
 
 
 def scan_packages(url):
+    # might use a dictionary from a text file later
     dictionary = {}
     
     # We're working with page 1 atm
@@ -114,8 +112,36 @@ def scan_packages(url):
     response = requests.get( url.format('1') )
     soup = BeautifulSoup(response.text, 'html.parser')
     
-    #get tags
+    # get tags
     results = soup.select('li span')
+    
+    # get page numbers
+    buttons = soup.find_all('a', {'class': 'button-group__button'})
+    '''
+    This code produces output like
+    [<a class="button button-group__button" href="/search/?c=License+%3A%3A+OSI+Approved+%3A%3A+GNU+General+Public+License+v2+or+later+%28GPLv2%2B%29&amp;o=&amp;q=&amp;page=1">Previous</a>,
+    
+ <a class="button button-group__button" href="/search/?c=License+%3A%3A+OSI+Approved+%3A%3A+GNU+General+Public+License+v2+or+later+%28GPLv2%2B%29&amp;o=&amp;q=&amp;page=1">1</a>,
+ 
+ <a class="button button-group__button" href="/search/?c=License+%3A%3A+OSI+Approved+%3A%3A+GNU+General+Public+License+v2+or+later+%28GPLv2%2B%29&amp;o=&amp;q=&amp;page=3">3</a>,
+ 
+ <a class="button button-group__button" href="/search/?c=License+%3A%3A+OSI+Approved+%3A%3A+GNU+General+Public+License+v2+or+later+%28GPLv2%2B%29&amp;o=&amp;q=&amp;page=4">4</a>,
+ 
+ This <a> tag below has the amount of pages we need to scrape
+ 
+ <a class="button button-group__button" href="/search/?c=License+%3A%3A+OSI+Approved+%3A%3A+GNU+General+Public+License+v2+or+later+%28GPLv2%2B%29&amp;o=&amp;q=&amp;page=50">50</a>,
+ 
+ <a class="button button-group__button" href="/search/?c=License+%3A%3A+OSI+Approved+%3A%3A+GNU+General+Public+License+v2+or+later+%28GPLv2%2B%29&amp;o=&amp;q=&amp;page=3">Next</a>]
+
+    '''
+    
+    # so, in this case, grab the text of 3th index (which in this case is '50', and convert to int
+    # boom, now we know page numbers
+    
+    # THIS INDEX WILL NOT BE THE SAME FOR ALL PAGES, WILL NEED UPDATING
+    number_of_pages = int(buttons[3].text)
+    # will remove print call after testing is finished for various pages
+    print(number_of_pages)
     
     # step count is used for iterating in steps
     step_count = 0
