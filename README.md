@@ -23,7 +23,10 @@ Once you've added the FreePI index to your pip configuration, you can use the pi
 Contact Us
 If you have any questions, feedback about FreePI or if you would like to contribute, please visit the channel #freepi on irc.libera.chat.
 
-Developed by ahoka and jsxself (jsxself is a FSF member)
+Developed by ahoka and jxself. (jxself is a FSF member)
 (ahoka, aka Zian, gives special thanks to jsxself for helping with this project on day one)
+
+You can find jxself's website here:
+https://jxself.org/
 
 
