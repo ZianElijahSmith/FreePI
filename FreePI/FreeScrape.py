@@ -5,6 +5,11 @@ Copyright: Zian Elijah Smith
 2023
 
 Web Scrapper for FreePI
+
+FreeScrape conducts webscraping on PyPi and collects the Free Software packages.
+Searches are conducted by cheacking each license page.
+
+This file is still being developed.
 '''
 
 # Pydantic is MIT license
