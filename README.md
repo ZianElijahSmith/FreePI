@@ -4,3 +4,21 @@
 https://freepi.org/
 
 **In Development**
+
+Welcome to FreePI
+FreePI is a Python package index that only includes and proposes free software. We reject nonfree software and documentation. If we discover that any nonfree software or documentation has been included by mistake, it will be removed.
+
+How FreePI Works
+FreePI works just like any other package index, but with the added benefit of only including free software. You can use the pip package manager to install packages using FreePi, just as you would with PyPI or any other index.
+
+Get Started with FreePI
+Getting started with FreePI is easy. Just add the FreePI index to your pip configuration by running the following command:
+<pre>pip config set global.index-url https://freepi.org/simple/</pre>
+
+Once you've added the FreePI index to your pip configuration, you can use the pip install command to install packages from FreePI, just as you would with PyPI:
+
+pip install package-name
+Contact Us
+If you have any questions or feedback about FreePI, please visit the channel #freepi on irc.libera.chat.
+
+
