@@ -22,4 +22,6 @@ pip install package-name
 Contact Us
 If you have any questions or feedback about FreePI, please visit the channel #freepi on irc.libera.chat.
 
+Developed by ahoka and jsxself (FSF member)
+
 
