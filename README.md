@@ -6,6 +6,7 @@ https://freepi.org/
 **In Development**
 
 Welcome to FreePI
+<br />
 FreePI is a Python package index that only includes and proposes free software. We reject nonfree software and documentation. If we discover that any nonfree software or documentation has been included by mistake, it will be removed.
 
 How FreePI Works
