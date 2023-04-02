@@ -1,2 +1,6 @@
 # FreePI
-Version of Python Package Index (PyPi) that contains ONLY Free Software
+
+## FreePI is the Free Package Index, a version of PyPi that includes ONLY 100% Free Software
+https://freepi.org/
+
+**In Development**
