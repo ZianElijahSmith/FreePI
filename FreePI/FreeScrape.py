@@ -189,10 +189,10 @@ def scan_packages(url: str, path_to_file: str) -> dict:
     
     
     page = 1
-    for each in range(0, (get_max_pages(url) + 2)):
-        with open(dictionary_file, "a") as file_object:
+    with open(dictionary_file, "a") as file_object:
+        for each in range(1, (get_max_pages(url) + 1)):
             file_object.writelines( str( parse_page(url, page) ) )
-        page += 1
+            page += 1
         
     return
 
@@ -200,5 +200,7 @@ def scan_packages(url: str, path_to_file: str) -> dict:
 # example call
 scan_packages(GPLv2, dictionary_file)
 
-# This gave us a dictionary of every package that was GPLv2 licensed
-# New text file was 178.7 KB
+# previous version was giving us each package 4 times
+# this has been fixed
+
+# dictionary file size with example call was 175.9 kB
