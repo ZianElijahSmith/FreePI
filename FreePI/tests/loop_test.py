@@ -90,10 +90,8 @@ def scan_packages(url: str, path_to_file: str) -> dict:
     
     page = 1
     for each in range(0, (get_max_pages(url) + 2)):
-        dictionary = ChainMap(dictionary, parse_page(url, page) )
-        
         with open(dictionary_file, "a") as file_object:
-            file_object.writelines( str( dictionary ) )
+            file_object.writelines( str( parse_page(url, page) ) )
         page += 1
         
     return
