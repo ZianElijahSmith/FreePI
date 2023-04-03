@@ -96,7 +96,7 @@ def scan_packages(url: str, path_to_file: str) -> dict:
             file_object.writelines( str( dictionary ) )
         page += 1
         
-    return dictionary_file
+    return
 
 
 # example call
