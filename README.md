@@ -16,7 +16,7 @@ FreePI works just like any other package index, but with the added benefit of on
 
 ## Get Started with FreePI
 <br />
-Getting started with FreePI is easy. Just add the FreePI index to your pip configuration by running the following command:
+Getting started with FreePI is easy. Once it's completed, just add the FreePI index to your pip configuration by running the following command:
 <pre>pip config set global.index-url https://freepi.org/simple/</pre>
 
 Once you've added the FreePI index to your pip configuration, you can use the pip install command to install packages from FreePI, just as you would with PyPI:
