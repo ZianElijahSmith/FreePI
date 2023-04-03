@@ -19,7 +19,8 @@ This file is still being developed.
 License: GPL-3.0 license
 '''
 
-
+# Pydantic is MIT license
+# Used for providing documentation and annotations to variables, etc
 try:
     import pydantic
 except(ImportError):
