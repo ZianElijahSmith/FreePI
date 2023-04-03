@@ -57,7 +57,6 @@ except(ImportError):
 # collections is from standard library
 # We need this to combine 2 dictionaries while keeping them in order
 # using chainmap
-
 from collections import ChainMap
 
 '''
@@ -186,8 +185,7 @@ GNU_Free_Documentation_License, GNU_General_Public_License, GNU_General_Public_L
 GNU_General_Public_License_v2_or_later, GNU_General_Public_License_v3, \
 GNU_General_Public_License_v3_or_later, GNU_Lesser_General_Public_License_v2, \
 GNU_Lesser_General_Public_License_v2_or_later, GNU_Lesser_General_Public_License_v3, \
-GNU_Lesser_General_Public_License_v3_or_later, GNU_Library_or_Lesser_General_Public_License, \
-MIT_License ]
+GNU_Lesser_General_Public_License_v3_or_later, GNU_Library_or_Lesser_General_Public_License ]
 
 
 # type hints cheat sheet
@@ -253,9 +251,13 @@ def scan_packages(url: str) -> dict:
     # boom, now we know page numbers
     
     # THIS INDEX WILL NOT BE THE SAME FOR ALL PAGES, WILL NEED UPDATING
-    number_of_pages = int(buttons[3].text)
+    #number_of_pages = int(buttons[3].text)
     # will remove print call after testing is finished for various pages
-    print(number_of_pages)
+    #print(number_of_pages)
+    
+    #This should consistently give us the number of pages to loop through
+    max_pages = int( buttons[ len(buttons) - 2 ].text )
+
     
     # step count is used for iterating in steps
     step_count = 0
