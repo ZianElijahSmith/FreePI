@@ -2,7 +2,6 @@
 # It works but needs testing to make sure it was 100% accurate
 
 # ran on GPLv2 URL
-# we got dictionary.txt file that was 3.2GB large!
 
 try:
     import pydantic
@@ -90,18 +89,18 @@ def scan_packages(url: str, path_to_file: str) -> dict:
     
     
     page = 1
-    for each in range(0, (get_max_pages(url) + 1)):
-        dictionary = ChainMap(dictionary, parse_page(url,) )
-        page += 1
+    for each in range(0, (get_max_pages(url) + 2)):
+        dictionary = ChainMap(dictionary, parse_page(url, page) )
         
         with open(dictionary_file, "a") as file_object:
             file_object.writelines( str( dictionary ) )
+        page += 1
         
-    return
+    return dictionary_file
 
 
 # example call
 scan_packages(GPLv2, dictionary_file)
 
 # This gave us a dictionary of every package that was GPLv2 licensed
-# File size was 3.2GB
+# New text file was 178.7 KB
