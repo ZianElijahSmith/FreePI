@@ -25,7 +25,8 @@ except(ImportError):
 
 
 dictionary = {}
-dictionary_file = "/home/FreePI/dictionary.txt"
+# this will need to be edited
+dictionary_file = "/home/gnunix/FreePI/dictionary.txt"
 
 
 def get_max_pages(url: str) -> int:
