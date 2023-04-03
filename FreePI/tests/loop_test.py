@@ -1,3 +1,9 @@
+# tested on Monday April 3rd 2023
+# It works but needs testing to make sure it was 100% accurate
+
+# ran on GPLv2 URL
+# we got dictionary.txt file that was 3.2GB large!
+
 try:
     import pydantic
 except(ImportError):
@@ -21,6 +27,7 @@ except(ImportError):
 
 dictionary = {}
 dictionary_file = "/home/FreePI/dictionary.txt"
+
 
 def get_max_pages(url: str) -> int:
     response = requests.get( url.format('1') )
@@ -90,8 +97,11 @@ def scan_packages(url: str, path_to_file: str) -> dict:
         with open(dictionary_file, "a") as file_object:
             file_object.writelines( str( dictionary ) )
         
-    return dictionary_file
+    return
 
 
 # example call
 scan_packages(GPLv2, dictionary_file)
+
+# This gave us a dictionary of every package that was GPLv2 licensed
+# File size was 3.2GB
