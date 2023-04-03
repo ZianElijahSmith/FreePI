@@ -1,4 +1,26 @@
+try:
+    import pydantic
+except(ImportError):
+    raise ImportError("You need to install the python package pydantic")
+
+# requests is Apache-2.0 license
+# used for making HTTP requests for webscraping
+try:
+    import requests
+except(ImportError):
+   raise ImportError("You need to install the python package requests")
+   
+# bs4 is MIT License (MIT)
+# used for extracting the data we receive from scrapes via requests
+try:
+    from bs4 import BeautifulSoup
+except(ImportError):
+   raise ImportError("You need to install the python package bs4 (BeautifulSoup)")
+   
+
+
 dictionary = {}
+dictionary_file = "/home/FreePI/dictionary.txt"
 
 def get_max_pages(url: str) -> int:
     response = requests.get( url.format('1') )
@@ -45,7 +67,7 @@ def parse_page(url: str, page=1) -> dict:
 
 # type hints cheat sheet
 # https://mypy.readthedocs.io/en/stable/cheat_sheet_py3.html
-def scan_packages(url: str) -> dict:
+def scan_packages(url: str, path_to_file: str) -> dict:
     global dictionary
 
     # might use a dictionary from a text file later
@@ -64,8 +86,13 @@ def scan_packages(url: str) -> dict:
     for each in range(0, (get_max_pages(url) + 1)):
         dictionary = ChainMap(dictionary, parse_page(url,) )
         page += 1
-    return dictionary
+        
+        with open(dictionary_file, "a") as file_object:
+            file_object.writelines( str( dictionary ) )
+        
+    return dictionary_file
 
 
 # example call
-scan_packages(GPLv2)
+scan_packages(GPLv2, dictionary_file)
+
