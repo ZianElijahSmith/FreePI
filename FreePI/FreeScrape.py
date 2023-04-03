@@ -39,6 +39,11 @@ try:
     from bs4 import BeautifulSoup
 except(ImportError):
    raise ImportError("You need to install the python package bs4 (BeautifulSoup)")
+
+# collections is Apache License 2.0
+# Also in standard library
+# ChainMap is used to combine dictionaries in their respective order
+from collections import ChainMap
    
    
    
