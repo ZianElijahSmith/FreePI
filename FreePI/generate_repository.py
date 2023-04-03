@@ -1,3 +1,7 @@
+
+# We need to generate something similar to https://pypi.org/simple/
+# this file will eventually import our dictionary, and then generate such a file
+
 def generate_repository(dictionary, file):
     total_count = len(dictionary)
     count = 0
