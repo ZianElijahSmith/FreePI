@@ -6,11 +6,15 @@
 
 '''
 FreeScrape.py
+
 Copyright: Zian Elijah Smith
 2023
+
 Web Scrapper for FreePI
+
 FreeScrape conducts webscraping on PyPi and collects the Free Software packages.
 Searches are conducted by cheacking each license page.
+
 This file is still being developed.
 License: GPL-3.0 license
 '''
@@ -170,17 +174,12 @@ def parse_page(url: str, page=1) -> dict:
 
 
 
-
-# type hints cheat sheet
-# https://mypy.readthedocs.io/en/stable/cheat_sheet_py3.html
 def scan_packages(url: str, path_to_file: str) -> dict:
     global dictionary
 
     # might use a dictionary from a text file later
 
     
-    # We're working with page 1 atm
-    # This will be edited
     response = requests.get( url.format('1') )
     soup = BeautifulSoup(response.text, 'html.parser')
     
