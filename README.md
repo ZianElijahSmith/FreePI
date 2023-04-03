@@ -8,7 +8,7 @@ Founded April 1st 2023 by ahoka (no, not an April fools joke)
 
 ## Welcome to FreePI
 <br />
-FreePI is a Python package index that only includes and proposes free software. We reject nonfree software and documentation. If we discover that any nonfree software or documentation has been included by mistake, it will be removed.
+FreePI (pronounced "Free Pie") is a Python package index that only includes and proposes free software. We reject nonfree software and documentation. If we discover that any nonfree software or documentation has been included by mistake, it will be removed.
 
 ## How FreePI Works
 <br />
@@ -31,4 +31,7 @@ Developed by ahoka and jxself. (jxself is a FSF member)
 You can find jxself's website here:
 https://jxself.org/
 
+## Update
+Our original intent was for FreePI to be a free software only version of PyPi. However, there are plans to begin the process of listing nothing but free software for other programming languages and their respective packages, such as RubyGems for Ruby, once our filtering of PyPi is complete.
 
+Thus, FreePI will be The Free Package Index.
