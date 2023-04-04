@@ -11,7 +11,7 @@ def generate_repository(dictionary, file):
     # create a text file and write to it
     with open(file, "t+w") as file_object:
         file_object.writelines("<!DOCTYPE html> \n")
-        file_object.writelines("<!-- Generated automatically with generate_repository.py -->")
+        file_object.writelines("<!-- Generated automatically with generate_repository.py --> \n\n")
         file_object.writelines("<html> \n")
         file_object.writelines("<head> \n")
         file_object.writelines("</head> \n")
