@@ -2,7 +2,9 @@
 # We need to generate something similar to https://pypi.org/simple/
 # this file will eventually import our dictionary, and then generate such a file
 
-
+# This will be changed to the directory on the server
+# This will also become an automated process 
+file_directory = '/home/gnunix/FreePI/FreePI/test.html'
 
 # give it a dictionary and an empty.html file
 def generate_repository(dictionary, file):

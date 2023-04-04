@@ -32,7 +32,7 @@ try:
     import requests
 except(ImportError):
    raise ImportError("You need to install the python package requests")
-   
+
 # bs4 is MIT License (MIT)
 # used for extracting the data we receive from scrapes via requests
 try:
@@ -44,9 +44,9 @@ except(ImportError):
 # Also in standard library
 # ChainMap is used to combine dictionaries in their respective order
 from collections import ChainMap
-   
-   
-   
+
+
+
 # Licenses, in alphabetical order
 
 #1
@@ -130,12 +130,34 @@ GNU_General_Public_License_v2_or_later, GNU_General_Public_License_v3, \
 GNU_General_Public_License_v3_or_later, GNU_Lesser_General_Public_License_v2, \
 GNU_Lesser_General_Public_License_v2_or_later, GNU_Lesser_General_Public_License_v3, \
 GNU_Lesser_General_Public_License_v3_or_later, GNU_Library_or_Lesser_General_Public_License ]
-   
+
 
 
 dictionary = {}
-# this will need to be edited
-dictionary_file = "/home/gnunix/FreePI/dictionary.txt"
+
+# this will need to be edited to the directory on the freepi server
+# We will scan each license page, and add all the packages
+# then, we will combine those into 1 giant file hosting every free package
+
+# then we just need to configure pip and the server, and boom, freepi will be ready 
+Apache_Software_License_dictionary_file = "/home/gnunix/FreePI/Apache_Software_License_dictionary_file.txt"
+Artistic_License_file = "/home/gnunix/FreePI/Artistic_License_file.txt"
+GNU_Affero_General_Public_License_v3_file = "/home/gnunix/FreePI/GNU_Affero_General_Public_License_v3_file.txt"
+GNU_Affero_General_Public_License_v3_or_later_file = "/home/gnunix/FreePI/GNU_Affero_General_Public_License_v3_or_later_file.txt"
+GNU_Free_Documentation_License_file = "/home/gnunix/FreePI/GNU_Free_Documentation_License_file.txt"
+GNU_General_Public_License_file = "/home/gnunix/FreePI/GNU_General_Public_License_file.txt"
+GNU_General_Public_License_v2_file = "/home/gnunix/FreePI/GNU_General_Public_License_v2_file.txt"
+GNU_General_Public_License_v2_or_later_file ="/home/gnunix/FreePI/GNU_General_Public_License_v2_or_later_file.txt"
+GNU_General_Public_License_v3_file = "/home/gnunix/FreePI/"
+GNU_General_Public_License_v3_or_later_file = "/home/gnunix/FreePI/"
+GNU_Lesser_General_Public_License_v2_file = "/home/gnunix/FreePI/"
+GNU_Lesser_General_Public_License_v2_or_later_file = "/home/gnunix/FreePI/"
+GNU_Lesser_General_Public_License_v3_file = "/home/gnunix/FreePI/"
+GNU_Lesser_General_Public_License_v3_or_later_file = "/home/gnunix/FreePI/"
+GNU_Library_or_Lesser_General_Public_License_file = "/home/gnunix/FreePI/"
+MIT_License_file =""
+Python_Software_Foundation_License =""
+
 
 
 def get_max_pages(url: str) -> int:
@@ -145,29 +167,29 @@ def get_max_pages(url: str) -> int:
     buttons = soup.find_all('a', {'class': 'button-group__button'})
     #This should consistently give us the number of pages to loop through
     max_pages = int( buttons[ len(buttons) - 2 ].text )
-    
+
     return max_pages
-    
+
 def parse_page(url: str, page=1) -> dict:
 
     response = requests.get( url.format(str(page)) )
     soup = BeautifulSoup(response.text, 'html.parser')
-    
+
     # get tags
     results = soup.select('li span')
-    
+
     step_count = 0
     # total count takes into account EACH iteration
     total_count = 0
-    
+
     # length = len(results) tells us how many items there are
     length = len(results)
-    
+
     # since the items are divisible by three
     # name, version, date
     # this will tell us how many steps we need
     steps = length / 3
-    
+
     # where the magic happens
     # .text is needed to extract the actual text FROM the html tags
     while total_count < (length-3):
@@ -175,7 +197,7 @@ def parse_page(url: str, page=1) -> dict:
             'version':results[total_count+1].text, 'date':results[total_count+2].text}
         total_count += 3
         step_count += 1
-        
+
     return dictionary
 
 
@@ -185,20 +207,20 @@ def scan_packages(url: str, path_to_file: str) -> dict:
 
     # might use a dictionary from a text file later
 
-    
+
     response = requests.get( url.format('1') )
     soup = BeautifulSoup(response.text, 'html.parser')
-    
+
     # get tags
     results = soup.select('li span')
-    
-    
+
+
     page = 1
     with open(dictionary_file, "a") as file_object:
         for each in range(1, (get_max_pages(url) + 1)):
             file_object.writelines( str( parse_page(url, page) ) )
             page += 1
-        
+
     return
 
 
