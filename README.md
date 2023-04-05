@@ -1,6 +1,6 @@
 # FreePI
 
-## FreePI is the Free Package Index, a version of PyPi that includes ONLY 100% Free Software
+## FreePI is the Free Package Index, a version of PyPi that includes ONLY 100% Free Software ("Free" as in "Free speech" not "Free beer")
 https://freepi.org/
 
 Founded April 1st 2023 by ahoka (no, not an April fools joke)
@@ -8,7 +8,10 @@ Founded April 1st 2023 by ahoka (no, not an April fools joke)
 
 ## Welcome to FreePI
 <br />
-FreePI (pronounced "Free Pie") is a Python package index that only includes and proposes free software. We reject nonfree software and documentation. If we discover that any nonfree software or documentation has been included by mistake, it will be removed.
+FreePI (pronounced "Free Pie") is a Python package index that only includes and proposes <a href="https://www.gnu.org/philosophy/free-sw.html">free software</a>. We reject nonfree software and documentation. If we discover that any nonfree software or documentation has been included by mistake, it will be removed.
+
+To learn more about "Free Software", please watch this 13 minute~ TEDTalk by Richard Stallman.
+https://www.youtube.com/watch?v=Ag1AKIl_2GM
 
 ## How FreePI Works
 <br />
