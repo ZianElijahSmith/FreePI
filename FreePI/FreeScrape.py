@@ -45,6 +45,11 @@ except(ImportError):
 # ChainMap is used to combine dictionaries in their respective order
 from collections import ChainMap
 
+# We will need this to turn python dictionaries into json files
+# json is in standard library
+# license unknown (PSF?)
+import json
+
 
 
 # Licenses, in alphabetical order
@@ -139,7 +144,7 @@ dictionary = {}
 # We will scan each license page, and add all the packages
 # then, we will combine those into 1 giant file hosting every free package
 
-# then we just need to configure pip and the server, and boom, freepi will be ready 
+# then we just need to configure pip and the server, and boom, freepi will be ready
 Apache_Software_License_dictionary_file = "/home/gnunix/FreePI/Apache_Software_License_dictionary_file.txt"
 Artistic_License_file = "/home/gnunix/FreePI/Artistic_License_file.txt"
 GNU_Affero_General_Public_License_v3_file = "/home/gnunix/FreePI/GNU_Affero_General_Public_License_v3_file.txt"
@@ -170,7 +175,7 @@ def get_max_pages(url: str) -> int:
 
     return max_pages
 
-def parse_page(url: str, page=1) -> dict:
+def parse_page(url: str, page: int ) -> dict:
 
     response = requests.get( url.format(str(page)) )
     soup = BeautifulSoup(response.text, 'html.parser')
@@ -225,6 +230,7 @@ def scan_packages(url: str, path_to_file: str) -> dict:
 
 
 # example call
+dictionary_file = "/home/gnunix/FreePI/FreePI/tests/dictionary2.txt"
 scan_packages(GPLv2, dictionary_file)
 
 # previous version was giving us each package 4 times

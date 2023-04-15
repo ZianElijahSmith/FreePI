@@ -3,11 +3,11 @@
 # this file will eventually import our dictionary, and then generate such a file
 
 # This will be changed to the directory on the server
-# This will also become an automated process 
+# This will also become an automated process
 file_directory = '/home/gnunix/FreePI/FreePI/test.html'
 
 # give it a dictionary and an empty.html file
-def generate_repository(dictionary, file):
+def generate_repository_from_dictionary(dictionary, file):
     total_count = len(dictionary)
     count = 0
     # create a text file and write to it
