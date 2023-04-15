@@ -145,21 +145,21 @@ dictionary = {}
 # then, we will combine those into 1 giant file hosting every free package
 
 # then we just need to configure pip and the server, and boom, freepi will be ready
-Apache_Software_License_dictionary_file = "/home/gnunix/FreePI/Apache_Software_License_dictionary_file.txt"
-Artistic_License_file = "/home/gnunix/FreePI/Artistic_License_file.txt"
-GNU_Affero_General_Public_License_v3_file = "/home/gnunix/FreePI/GNU_Affero_General_Public_License_v3_file.txt"
-GNU_Affero_General_Public_License_v3_or_later_file = "/home/gnunix/FreePI/GNU_Affero_General_Public_License_v3_or_later_file.txt"
-GNU_Free_Documentation_License_file = "/home/gnunix/FreePI/GNU_Free_Documentation_License_file.txt"
-GNU_General_Public_License_file = "/home/gnunix/FreePI/GNU_General_Public_License_file.txt"
-GNU_General_Public_License_v2_file = "/home/gnunix/FreePI/GNU_General_Public_License_v2_file.txt"
-GNU_General_Public_License_v2_or_later_file ="/home/gnunix/FreePI/GNU_General_Public_License_v2_or_later_file.txt"
-GNU_General_Public_License_v3_file = "/home/gnunix/FreePI/"
-GNU_General_Public_License_v3_or_later_file = "/home/gnunix/FreePI/"
-GNU_Lesser_General_Public_License_v2_file = "/home/gnunix/FreePI/"
-GNU_Lesser_General_Public_License_v2_or_later_file = "/home/gnunix/FreePI/"
-GNU_Lesser_General_Public_License_v3_file = "/home/gnunix/FreePI/"
-GNU_Lesser_General_Public_License_v3_or_later_file = "/home/gnunix/FreePI/"
-GNU_Library_or_Lesser_General_Public_License_file = "/home/gnunix/FreePI/"
+Apache_Software_License_dictionary_file = "/home/gnunix/FreePI/Apache_Software_License_dictionary_file.json"
+Artistic_License_file = "/home/gnunix/FreePI/Artistic_License_file.json"
+GNU_Affero_General_Public_License_v3_file = "/home/gnunix/FreePI/GNU_Affero_General_Public_License_v3_file.json"
+GNU_Affero_General_Public_License_v3_or_later_file = "/home/gnunix/FreePI/GNU_Affero_General_Public_License_v3_or_later_file.json"
+GNU_Free_Documentation_License_file = "/home/gnunix/FreePI/GNU_Free_Documentation_License_file.json"
+GNU_General_Public_License_file = "/home/gnunix/FreePI/GNU_General_Public_License_file.json"
+GNU_General_Public_License_v2_file = "/home/gnunix/FreePI/GNU_General_Public_License_v2_file.json"
+GNU_General_Public_License_v2_or_later_file ="/home/gnunix/FreePI/GNU_General_Public_License_v2_or_later_file.json"
+GNU_General_Public_License_v3_file = "/home/gnunix/FreePI/GNU_General_Public_License_v3_file.json"
+GNU_General_Public_License_v3_or_later_file = "/home/gnunix/FreePI/GNU_General_Public_License_v3_or_later_file.json"
+GNU_Lesser_General_Public_License_v2_file = "/home/gnunix/FreePI/GNU_Lesser_General_Public_License_v2_file.json"
+GNU_Lesser_General_Public_License_v2_or_later_file = "/home/gnunix/FreePI/GNU_Lesser_General_Public_License_v2_or_later_file.json"
+GNU_Lesser_General_Public_License_v3_file = "/home/gnunix/FreePI/GNU_Lesser_General_Public_License_v3_file.json"
+GNU_Lesser_General_Public_License_v3_or_later_file = "/home/gnunix/FreePI/GNU_Lesser_General_Public_License_v3_or_later_file.json"
+GNU_Library_or_Lesser_General_Public_License_file = "/home/gnunix/FreePI/GNU_Library_or_Lesser_General_Public_License_file.json"
 MIT_License_file =""
 Python_Software_Foundation_License =""
 
@@ -223,14 +223,14 @@ def scan_packages(url: str, path_to_file: str) -> dict:
     page = 1
     with open(dictionary_file, "a") as file_object:
         for each in range(1, (get_max_pages(url) + 1)):
-            file_object.writelines( str( parse_page(url, page) ) )
+            json.dump( str(parse_page(url, page)), file_object )
             page += 1
 
     return
 
 
 # example call
-dictionary_file = "/home/gnunix/FreePI/FreePI/tests/dictionary2.txt"
+dictionary_file = "/home/gnunix/FreePI/FreePI/tests/dictionary2.json"
 scan_packages(GPLv2, dictionary_file)
 
 # previous version was giving us each package 4 times
