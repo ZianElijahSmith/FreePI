@@ -6,6 +6,14 @@ https://freepi.org/
 Founded April 1st 2023 by ahoka (no, not an April fools joke)
 **In Development**
 
+## Important note!!
+PyPi has a package index limit on their search pages (based on license) of 10,000 packages, even though some licenses indexes have more than 10,000 packages.
+
+Since FreePI is scanning PyPi for packages, this means FreePI won't be able to get all packages that fit a license.
+This issue comes from PyPi's 10,000 limit and is not an issue with FreePI, but it will hinder and slow down FreePI's development.
+
+We are contacting PyPi and thinking of a solution to this issue.
+
 ## Welcome to FreePI
 <br />
 FreePI (pronounced "Free Pie") is a Python package index that only includes and proposes <a href="https://www.gnu.org/philosophy/free-sw.html">free software</a>. We reject nonfree software and documentation. If we discover that any nonfree software or documentation has been included by mistake, it will be removed.
