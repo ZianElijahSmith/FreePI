@@ -160,8 +160,8 @@ GNU_Lesser_General_Public_License_v2_or_later_file = "/home/gnunix/FreePI/GNU_Le
 GNU_Lesser_General_Public_License_v3_file = "/home/gnunix/FreePI/GNU_Lesser_General_Public_License_v3_file.json"
 GNU_Lesser_General_Public_License_v3_or_later_file = "/home/gnunix/FreePI/GNU_Lesser_General_Public_License_v3_or_later_file.json"
 GNU_Library_or_Lesser_General_Public_License_file = "/home/gnunix/FreePI/GNU_Library_or_Lesser_General_Public_License_file.json"
-MIT_License_file =""
-Python_Software_Foundation_License =""
+MIT_License_file ="/home/gnunix/FreePI/MIT_License_file.json"
+Python_Software_Foundation_License ="/home/gnunix/FreePI/PSF_License_file.json"
 
 
 
@@ -198,8 +198,7 @@ def parse_page(url: str, page: int ) -> dict:
     # where the magic happens
     # .text is needed to extract the actual text FROM the html tags
     while total_count < (length-3):
-        dictionary[step_count] = {'name':results[total_count].text, \
-            'version':results[total_count+1].text, 'date':results[total_count+2].text}
+        dictionary[step_count] = {'name':results[total_count].text,'version':results[total_count+1].text, 'date':results[total_count+2].text}
         total_count += 3
         step_count += 1
 
