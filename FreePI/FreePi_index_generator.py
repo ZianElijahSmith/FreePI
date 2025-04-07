@@ -11,13 +11,28 @@ import json
 from bs4 import BeautifulSoup
 from pathlib import Path
 
-# Free software licenses (expand as needed)
+# Expanded free software licenses
 FREE_LICENSES = {
+    "MIT": True,
     "MIT License": True,
+    "Apache": True,  # Broad match for Apache variants
+    "Apache License": True,
     "Apache License 2.0": True,
+    "Apache 2": True,
+    "Apache 2.0": True,
+    "GPL": True,  # Broad match for GPL variants
+    "GNU General Public License": True,
+    "GNU General Public License v3": True,
     "GNU General Public License v3 (GPLv3)": True,
+    "GPLv3": True,
+    "GPL-3.0": True,
+    "LGPL": True,  # Broad match for LGPL variants
+    "GNU Lesser General Public License": True,
+    "GNU Lesser General Public License v3": True,
     "GNU Lesser General Public License v3 (LGPLv3)": True,
-    # Add more from GNU/OSI lists
+    "LGPLv3": True,
+    "LGPL-3.0": True,
+    # Add more: BSD, Artistic, etc., based on GNU/OSI lists
 }
 
 # Output directory for the index
@@ -46,27 +61,36 @@ def is_free_software(license_str):
     """Check if a license string matches a known free software license."""
     if not license_str:
         return False
-    license_str = license_str.strip()
-    return license_str in FREE_LICENSES or any(l in license_str for l in FREE_LICENSES)
+    license_str = license_str.strip().lower()  # Case-insensitive matching
+    # Exact match or substring match
+    return license_str in FREE_LICENSES or any(l.lower() in license_str for l in FREE_LICENSES)
 
 def generate_index():
     """Generate the FreePi package index."""
     packages = get_all_packages()
     free_packages = {}
+    print(f"Total packages to check: {len(packages)}")
 
     for package in packages[:100]:  # Limit for testing; remove for full run
         print(f"Checking {package}...")
         info = get_package_info(package)
         if not info or "info" not in info:
+            print(f"No info for {package}")
             continue
         
         license_str = info["info"].get("license", "")
+        print(f"License for {package}: '{license_str}'")
         if is_free_software(license_str):
+            print(f"Found free package: {package}")
             free_packages[package] = {
                 "version": info["info"]["version"],
                 "license": license_str,
                 "releases": info["releases"],
             }
+
+    print(f"Total free packages found: {len(free_packages)}")
+    if not free_packages:
+        print("No free packages detected. Check license matching logic.")
 
     # Write the simple index
     simple_index = INDEX_DIR / "simple"
@@ -75,7 +99,6 @@ def generate_index():
         f.write("<html><body>\n")
         for package in free_packages:
             f.write(f'<a href="{package}/">{package}</a><br>\n')
-            # Write package subpage
             package_dir = simple_index / package
             package_dir.mkdir(exist_ok=True)
             with open(package_dir / "index.html", "w") as pf:
