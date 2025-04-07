@@ -116,3 +116,7 @@ def generate_index():
 
 if __name__ == "__main__":
     generate_index()
+
+
+# Tested April 6th, only found 45 free packages, the fix is to expand licenses
+# expanded licenses and added code to prevent being throttled in FreePi_index_generator2.py
