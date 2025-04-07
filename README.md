@@ -1,7 +1,7 @@
 # FreePI (Still being developed)
 
 ## FreePI is the Free Package Index, a version of PyPi that includes ONLY 100% Free Software ("Free" as in "Free speech" not "Free beer")
-https://freepi.org/
+https://freepi.org/ (site down but will be restored eventually)
 
 Founded April 1st 2023 by ahoka (no, not an April fools joke)
 **In Development**
@@ -47,34 +47,39 @@ Our original intent was for FreePI to be a free software only version of PyPi. H
 
 Thus, FreePI will be The Free Package Index.
 
+## NEW APPROACH
+Added + Tested a new index generator:
+<a href="https://github.com/ZianElijahSmith/FreePI/blob/main/FreePI/FreePi_index_generator.py">https://github.com/ZianElijahSmith/FreePI/blob/main/FreePI/FreePi_index_generator.py</a>
+
+How It Works
+Fetch Packages: Uses PyPI’s /simple/ endpoint to get all package names.
+
+Filter Free Software: Queries each package’s JSON metadata, checks the license against FREE_LICENSES.
+
+Generate Index: Creates a /simple/ directory structure mirroring PyPI’s format, linking to original package files (no need to host them yourself).
+
+Output: Produces a usable index at https://freepi.org/simple/ (once hosted) and a JSON file for debugging.
+
+Next Steps
+Host the Index: Set up a simple web server (e.g., Nginx) to serve the index/ directory.
+
+Automate Updates: Use a cron job to rerun the script periodically (e.g., weekly) to catch new packages and updates.
+
+Scale with BigQuery: For efficiency, switch to querying pypi.packages in BigQuery (requires a Google Cloud account but is free for small usage).
+
+Create fip: Write a thin wrapper around pip
+
+```
+# fip.py
+import sys
+import subprocess
+
+subprocess.run(["pip", "install", *sys.argv[1:], "--index-url", "https://freepi.org/simple/"])
+```
+
+Install it system-wide with python3 setup.py install.
 
 
-## Issues: at the moment, we have 2 main issues that need to be fixed as far as our code is concerned, 1 related to PyPi
+TESTED Sunday, April 6th, 2025
+![image](https://github.com/user-attachments/assets/e71a5a52-ffee-4f1f-925a-c7881e725009)
 
-### Code issues
-
-### 1. Need to fix the indexing
-FreePI starts indexing packages at 0 and it scans each page.
-When FreePI goes from page 1 to page 2, it starts counting from 0 again.
-This is giving us multiple dictionaries with values from 0 to approx 16-17.
-
-One idea is change parse_page() and scan_packages() functions to make sure that FreePI counts from 0, and 
-then adds each package based on total value, not page index.
-
-
-### 2. Need to combine various dictionaries into 1 numerical dictionary
-Self explanitory
-
-### PyPi Issues
-
-### 1. Package limit is 10,000
-Suppose we go to https://pypi.org/search/ and we browse by license for the purposes of scanning all FOSS packages.
-PyPi has a 10,000 package limit, which means if there are 14,000 packages under the Apache Software License,
-our FreeScrape program will only be able to find 10,000 of them, not all 14,000.
-
-Basically, PyPi stops generating pages after the 10,000th package (which I believe i 500 pages).
-
-We've contacted PyPi, waited, and have received no response. That means we need to find an automated way to ensure we get all
-packages under a FOSS license that takes the 10,000 package limit into account. It would be a pain to manually add them.
-
-This issue has been the main holdup on the project.
